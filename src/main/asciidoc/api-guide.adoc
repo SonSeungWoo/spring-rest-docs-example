@@ -29,15 +29,12 @@ include::{snippets}/person-controller-test/get-person-list/http-request.adoc[]
 
 ==== 요청 파라미터들
 
-include::{snippets}/person-controller-test/get-person-list/request-parameters.adoc[]
+include::{snippets}/person-controller-test/get-person-list/request-fields.adoc[]
 
 === 응답 구조
 
 include::{snippets}/person-controller-test/get-person-list/http-response.adoc[]
 
-==== 응답 파라미터들
-
-include::{snippets}/person-controller-test/get-person-list/response-fields.adoc[]
 
 == 사용자 조회 [get]
 
@@ -58,6 +55,22 @@ include::{snippets}/person-controller-test/get-person/path-parameters.adoc[]
 
 include::{snippets}/person-controller-test/get-person/http-response.adoc[]
 
-==== 응답 파라미터들
 
-include::{snippets}/person-controller-test/get-person/response-fields.adoc[]
+== 사용자 등록 [post]
+
+사용자 등록
+
+
+include::{snippets}/person-controller-test/create-person/curl-request.adoc[]
+
+=== 요청 구조
+
+include::{snippets}/person-controller-test/create-person/http-request.adoc[]
+
+==== 요청 파라미터들
+
+include::{snippets}/person-controller-test/create-person/request-fields.adoc[]
+
+=== 응답 구조
+
+include::{snippets}/person-controller-test/create-person/http-response.adoc[]

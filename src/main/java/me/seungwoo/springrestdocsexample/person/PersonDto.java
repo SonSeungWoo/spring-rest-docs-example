@@ -2,6 +2,8 @@ package me.seungwoo.springrestdocsexample.person;
 
 import lombok.Data;
 
+import javax.validation.constraints.Size;
+
 /**
  * Created by Leo.
  * User: sonseungwoo
@@ -14,6 +16,7 @@ public class PersonDto {
     public static class PersonCreate {
         private String name;
 
+        @Size(max = 50)
         private String email;
     }
 }

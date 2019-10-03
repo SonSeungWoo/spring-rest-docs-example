@@ -15,6 +15,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -29,6 +30,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -74,10 +76,10 @@ public class PersonControllerTest {
                 .andExpect(status().isOk())
                 .andDo(document.document(
                         responseFields(
-                                fieldWithPath("[].id").description("The id of the output"),
-                                fieldWithPath("[].name").description("The name of the output"),
-                                fieldWithPath("[].email").description("The email of the output"),
-                                fieldWithPath("[].date").description("The date of the output"))));
+                                fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("The id of the output"),
+                                fieldWithPath("[].name").type(JsonFieldType.STRING).description("The name of the output"),
+                                fieldWithPath("[].email").type(JsonFieldType.STRING).description("The email of the output"),
+                                fieldWithPath("[].date").type(JsonFieldType.STRING).description("The date of the output"))));
     }
 
     @Test
@@ -93,10 +95,10 @@ public class PersonControllerTest {
                         /*requestFields(
                                 fieldWithPath("name").description("The name of the input")),*/
                         responseFields(
-                                fieldWithPath("id").description("The id of the output"),
-                                fieldWithPath("name").description("The name of the output"),
-                                fieldWithPath("email").description("The email of the output"),
-                                fieldWithPath("date").description("The date of the output"))))
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("The id of the output"),
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("The name of the output"),
+                                fieldWithPath("email").type(JsonFieldType.STRING).description("The email of the output"),
+                                fieldWithPath("date").type(JsonFieldType.STRING).description("The date of the output"))))
                 .andExpect(jsonPath("$.id", is(notNullValue())))
                 .andExpect(jsonPath("$.name", is(notNullValue())))
                 .andExpect(jsonPath("$.email", is(notNullValue())))
@@ -105,6 +107,8 @@ public class PersonControllerTest {
 
     @Test
     public void createPerson() throws Exception {
+        ConstraintDescriptions constraintDescriptions = new ConstraintDescriptions(PersonDto.PersonCreate.class);
+
         PersonDto.PersonCreate person = new PersonDto.PersonCreate();
         person.setName("seungwoo0429");
         person.setEmail("seungwoo@test.com");
@@ -117,8 +121,10 @@ public class PersonControllerTest {
                                 parameterWithName("name").description("name").optional(),
                                 parameterWithName("email").description("email").optional()),
                         requestFields(
-                                fieldWithPath("name").description("The name of the input"),
-                                fieldWithPath("email").description("The email of the input")
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("The name of the input")
+                                        .attributes(key("byte").value(constraintDescriptions.descriptionsForProperty("name"))),
+                                fieldWithPath("email").type(JsonFieldType.STRING).description("The email of the input")
+                                        .attributes(key("byte").value(constraintDescriptions.descriptionsForProperty("email")))
                         )
                 ));
     }
