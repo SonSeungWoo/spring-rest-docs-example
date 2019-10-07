@@ -84,7 +84,7 @@ public class PersonControllerTest {
 
     @Test
     public void getPerson() throws Exception {
-        ConstraintDescriptions desc = new ConstraintDescriptions(Person.class);
+        ConstraintDescriptions constraintDescriptions = new ConstraintDescriptions(Person.class);
 
         this.mockMvc.perform(get("/person/{name}", "seungwoo")
                 .accept(MediaType.APPLICATION_JSON))

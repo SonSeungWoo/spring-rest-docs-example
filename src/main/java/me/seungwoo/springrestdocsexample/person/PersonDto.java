@@ -2,7 +2,7 @@ package me.seungwoo.springrestdocsexample.person;
 
 import lombok.Data;
 
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
 
 /**
  * Created by Leo.
@@ -14,9 +14,10 @@ public class PersonDto {
 
     @Data
     public static class PersonCreate {
+        @Max(10)
         private String name;
 
-        @Size(max = 50)
+        @Max(50)
         private String email;
     }
 }

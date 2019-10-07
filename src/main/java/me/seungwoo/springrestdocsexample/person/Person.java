@@ -1,5 +1,7 @@
 package me.seungwoo.springrestdocsexample.person;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
